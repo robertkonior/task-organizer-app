@@ -8,11 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -24,13 +21,11 @@ public class TrelloMapperTestSuite {
     @Test
     public void testMapToBoards() {
         //Given
-        TrelloListDto trelloListDto = new TrelloListDto("1", "testedList", true);
-        List<TrelloListDto> listToTest = Arrays.asList(trelloListDto);
+        List<TrelloListDto> listToTest = Arrays.asList(new TrelloListDto("1", "testedList", true));
         TrelloBoardDto trelloBoardDto = new TrelloBoardDto("1.1", "testedBoard", listToTest);
         List<TrelloBoardDto> trelloBoardToTest = Arrays.asList(trelloBoardDto);
 
-        TrelloList trello = new TrelloList("1", "testedList", true);
-        List<TrelloList> trelloLists = Arrays.asList(trello);
+        List<TrelloList> trelloLists = Arrays.asList(new TrelloList("1", "testedList", true));
         TrelloBoard trelloBoard = new TrelloBoard("1.1", "testedBoard", trelloLists);
         List<TrelloBoard> expectedList = Arrays.asList(trelloBoard);
 
@@ -43,13 +38,11 @@ public class TrelloMapperTestSuite {
     @Test
     public void testMapToBoardsDto() {
         //Given
-        TrelloList trello = new TrelloList("1", "testedList", true);
-        List<TrelloList> trelloLists = Arrays.asList(trello);
+        List<TrelloList> trelloLists = Arrays.asList(new TrelloList("1", "testedList", true));
         TrelloBoard trelloBoard = new TrelloBoard("1.1", "testedBoard", trelloLists);
         List<TrelloBoard> trelloBoardToTest = Arrays.asList(trelloBoard);
 
-        TrelloListDto trelloListDto = new TrelloListDto("1", "testedList", true);
-        List<TrelloListDto> listToTest = Arrays.asList(trelloListDto);
+        List<TrelloListDto> listToTest = Arrays.asList(new TrelloListDto("1", "testedList", true));
         TrelloBoardDto trelloBoardDto = new TrelloBoardDto("1.1", "testedBoard", listToTest);
         List<TrelloBoardDto> expectedList = Arrays.asList(trelloBoardDto);
         //When
@@ -62,8 +55,7 @@ public class TrelloMapperTestSuite {
     @Test
     public void testMapToList() {
         //Given
-        TrelloListDto trelloListDto = new TrelloListDto("1", "testedList", true);
-        List<TrelloListDto> listToTest = Arrays.asList(trelloListDto);
+        List<TrelloListDto> listToTest = Arrays.asList(new TrelloListDto("1", "testedList", true));
 
         TrelloList trelloList = new TrelloList("1", "testedList", true);
         List<TrelloList> expectedList = Arrays.asList(trelloList);
@@ -76,8 +68,7 @@ public class TrelloMapperTestSuite {
     @Test
     public void testMapToListDto() {
         //Given
-        TrelloList trelloList = new TrelloList("1", "testedList", true);
-        List<TrelloList> listToTest = Arrays.asList(trelloList);
+        List<TrelloList> listToTest = Arrays.asList(new TrelloList("1", "testedList", true));
 
         TrelloListDto trelloListDto = new TrelloListDto("1", "testedList", true);
         List<TrelloListDto> expectedList = Arrays.asList(trelloListDto);

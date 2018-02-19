@@ -12,8 +12,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.*;
-
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class TaskMapperTestSuite {
@@ -46,8 +44,7 @@ public class TaskMapperTestSuite {
     @Test
     public void testMapToTaskDtoList() {
         //Given
-        Task taskToMap = new Task(11L, "to_test", "something");
-        List<Task> listToMap = Arrays.asList(taskToMap);
+        List<Task> listToMap = Arrays.asList(new Task(11L, "to_test", "something"));
         TaskDto expectedTask = new TaskDto(11L, "to_test", "something");
         List<TaskDto> expectedList = Arrays.asList(expectedTask);
         //When
