@@ -25,24 +25,22 @@ public class TaskMapperTestSuite {
     public void testMapToTask() {
         //Given
         TaskDto taskDtoToMap = new TaskDto(11L, "to_test", "something");
+        Task expectedTask = new Task(11L, "to_test", "something");
         //When
         Task mappedTask = taskMapper.mapToTask(taskDtoToMap);
         //Then
-        Assert.assertEquals(11L, mappedTask.getId(), 0);
-        Assert.assertEquals("to_test", mappedTask.getTitle());
-        Assert.assertEquals("something", mappedTask.getContent());
+        Assert.assertEquals(expectedTask, mappedTask);
     }
 
     @Test
     public void testMapToTaskDto() {
         //Given
         Task taskToMap = new Task(11L, "to_test", "something");
+        TaskDto expectedTask = new TaskDto(11L, "to_test", "something");
         //When
         TaskDto mappedTask = taskMapper.mapToTaskDto(taskToMap);
         //Then
-        Assert.assertEquals(11L, mappedTask.getId(), 0);
-        Assert.assertEquals("to_test", mappedTask.getTitle());
-        Assert.assertEquals("something", mappedTask.getContent());
+        Assert.assertEquals(expectedTask, mappedTask);
     }
 
     @Test
@@ -50,11 +48,11 @@ public class TaskMapperTestSuite {
         //Given
         Task taskToMap = new Task(11L, "to_test", "something");
         List<Task> listToMap = Arrays.asList(taskToMap);
+        TaskDto expectedTask = new TaskDto(11L, "to_test", "something");
+        List<TaskDto> expectedList = Arrays.asList(expectedTask);
         //When
         List<TaskDto> mappedList = taskMapper.mapToTaskDtoList(listToMap);
         //Then
-        Assert.assertEquals(11L, mappedList.get(0).getId(), 0);
-        Assert.assertEquals("to_test", mappedList.get(0).getTitle());
-        Assert.assertEquals("something", mappedList.get(0).getContent());
+        Assert.assertEquals(expectedList, mappedList);
     }
 }
