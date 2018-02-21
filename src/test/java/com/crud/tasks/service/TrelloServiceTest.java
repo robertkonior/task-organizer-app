@@ -62,19 +62,16 @@ public class TrelloServiceTest {
         CreatedTrelloCardDto createdCard = trelloService.createdTrelloCard(cardToTest);
         //Then
         assertEquals(createdToTest, createdCard);
-        verify(emailService, times(1)).send(any(Mail.class));
+        verify(emailService, times(1)).send(new Mail("admin@admin.com","Task: New Trello card ","New card: " +cardToTest.getName()+ "has been created on your Trello account"));
     }
 
     @Test
     public void shouldNotSendEmail() {
         //Given
-        TrelloCardDto cardToTest = new TrelloCardDto("1", "something", "top", "22");
-        when(trelloClient.createNewCard(cardToTest)).thenReturn(null);
-
         //When
-        trelloService.createdTrelloCard(cardToTest);
+        trelloService.createdTrelloCard(null);
         //Then
-        verify(emailService, times(0)).send(any(Mail.class));
+        verify(emailService, times(0)).send(null);
     }
 
 }
