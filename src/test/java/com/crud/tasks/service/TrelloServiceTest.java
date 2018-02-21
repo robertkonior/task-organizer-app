@@ -70,7 +70,6 @@ public class TrelloServiceTest {
         //Given
         TrelloCardDto cardToTest = new TrelloCardDto("1", "something", "top", "22");
         when(trelloClient.createNewCard(cardToTest)).thenReturn(null);
-        when(adminConfig.getAdminMail()).thenReturn("admin@admin.com");
 
         //When
         trelloService.createdTrelloCard(cardToTest);
