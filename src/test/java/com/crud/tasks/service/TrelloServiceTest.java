@@ -17,6 +17,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -31,7 +34,7 @@ public class TrelloServiceTest {
     @Mock
     private TrelloClient trelloClient;
 
-    @Autowired
+    @Mock
     private SimpleEmailService emailService;
 
     @Test
@@ -44,29 +47,35 @@ public class TrelloServiceTest {
         //When
         List<TrelloBoardDto> fetchedList = trelloService.fetchTrelloBoards();
         //Then
-        assertEquals(trelloBoardToTest,fetchedList);
+        assertEquals(trelloBoardToTest, fetchedList);
     }
 
-    @Ignore
     @Test
     public void createdTrelloCard() {
         //Given
         TrelloCardDto cardToTest = new TrelloCardDto("1", "something", "top", "22");
-        CreatedTrelloCardDto createdToTest = new CreatedTrelloCardDto("1","1","some_url");
+        CreatedTrelloCardDto createdToTest = new CreatedTrelloCardDto("1", "1", "some_url");
         when(trelloClient.createNewCard(cardToTest)).thenReturn(createdToTest);
         when(adminConfig.getAdminMail()).thenReturn("admin@admin.com");
 
-        //Given
-        Mail mail = new Mail("test@test.com","Test","Test Message");
-
-        SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setTo(mail.getMailTo());
-        mailMessage.setSubject(mail.getSubject());
-        mailMessage.setText(mail.getMessage());
         //When
         CreatedTrelloCardDto createdCard = trelloService.createdTrelloCard(cardToTest);
         //Then
         assertEquals(createdToTest, createdCard);
-
+        verify(emailService, times(1)).send(any(Mail.class));
     }
+
+    @Test
+    public void shouldNotSendEmail() {
+        //Given
+        TrelloCardDto cardToTest = new TrelloCardDto("1", "something", "top", "22");
+        when(trelloClient.createNewCard(cardToTest)).thenReturn(null);
+        when(adminConfig.getAdminMail()).thenReturn("admin@admin.com");
+
+        //When
+        trelloService.createdTrelloCard(cardToTest);
+        //Then
+        verify(emailService, times(0)).send(any(Mail.class));
+    }
+
 }
