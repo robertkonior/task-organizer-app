@@ -5,7 +5,6 @@ import com.crud.tasks.domain.TaskDto;
 import com.crud.tasks.mapper.TaskMapper;
 import com.crud.tasks.service.DbService;
 import com.google.gson.Gson;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +57,7 @@ public class TaskControllerTest {
         mockMvc.perform(get("/v1/task/getTasks").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)));
+        verify(service , times(1)).getAllTasks();
     }
 
     @Test
@@ -77,6 +77,7 @@ public class TaskControllerTest {
                 .andExpect(jsonPath("$.id", is(11)))
                 .andExpect(jsonPath("$.title", is("to_test")))
                 .andExpect(jsonPath("$.content", is("something")));
+        verify(service , times(1)).getTask(11L);
     }
 
     @Test
@@ -90,6 +91,7 @@ public class TaskControllerTest {
                 .characterEncoding("UTF-8")
                 .param("taskId", "11"))
                 .andExpect(status().isNotFound());
+        verify(service, times(0)).deleteTask(11L);
     }
 
     @Test
@@ -125,6 +127,8 @@ public class TaskControllerTest {
                 .andExpect(jsonPath("$.id", is(11)))
                 .andExpect(jsonPath("$.title", is("to_test")))
                 .andExpect(jsonPath("$.content", is("something")));
+        verify(service,times(1)).saveTask(task);
+
     }
 
     @Test
@@ -144,5 +148,6 @@ public class TaskControllerTest {
                 .characterEncoding("UTF-8")
                 .content(jsonContent))
                 .andExpect(status().isOk());
+        verify(service, times(1)).saveTask(task);
     }
 }
