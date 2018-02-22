@@ -85,7 +85,7 @@ public class TaskControllerTest {
         when(service.getTask(anyLong())).thenReturn(Optional.empty());
 
         //When & Then
-        mockMvc.perform(get("/v1/tasks/11")
+        mockMvc.perform(delete("/v1/task/deleteTask")
                 .contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8")
                 .param("taskId", "11"))
@@ -94,29 +94,21 @@ public class TaskControllerTest {
 
     @Test
     public void shouldDeleteTask() throws Exception {
-//        Given
-//        When&Then
-        mockMvc.perform(delete("/v1/task/deleteTask?taskId=11").contentType(MediaType.APPLICATION_JSON)
+        //Given
+        Task task = new Task(11L, "to_test", "something");
+        when(service.getTask(11L)).thenReturn(Optional.of(task));
+        //When&Then
+        mockMvc.perform(delete("/v1/task/deleteTask").contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8")
                 .param("taskId", "11"))
                 .andExpect(status().isOk());
         verify(service, times(1)).deleteTask(11L);
     }
 
-    @Ignore
-    @Test
-    public void testDeleteNonExistingTask() throws Exception {
-        when(service.getTask(11L)).thenReturn((Optional.empty()));
-        //When&Then
-        mockMvc.perform(delete("/v1/task/deleteTask?taskId=11").contentType(MediaType.APPLICATION_JSON)
-                .characterEncoding("UTF-8"))
-                .andExpect(status().isNotFound());
-    }
-
     @Test
     public void shouldUpdateTask() throws Exception {
         //Given
-        TaskDto taskDto= new TaskDto(11L, "to_test", "something");
+        TaskDto taskDto = new TaskDto(11L, "to_test", "something");
         Task task = new Task(11L, "to_test", "something");
         when(taskMapper.mapToTask(any(TaskDto.class))).thenReturn(task);
         when(service.saveTask(task)).thenReturn(task);
@@ -139,7 +131,7 @@ public class TaskControllerTest {
     public void createTask() throws Exception {
         //Given
         Task task = new Task(11L, "to_test", "something");
-        TaskDto taskDto= new TaskDto(11L, "to_test", "something");
+        TaskDto taskDto = new TaskDto(11L, "to_test", "something");
         when(taskMapper.mapToTask(any(TaskDto.class))).thenReturn(task);
         when(service.saveTask(any(Task.class))).thenReturn(task);
 
@@ -148,9 +140,9 @@ public class TaskControllerTest {
 
         //When&Then
         mockMvc.perform(post("/v1/task/createTask")
-        .contentType(MediaType.APPLICATION_JSON)
-        .characterEncoding("UTF-8")
-        .content(jsonContent))
+                .contentType(MediaType.APPLICATION_JSON)
+                .characterEncoding("UTF-8")
+                .content(jsonContent))
                 .andExpect(status().isOk());
     }
 }
