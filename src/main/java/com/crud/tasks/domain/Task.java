@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 
@@ -13,6 +14,7 @@ import javax.persistence.*;
 @EqualsAndHashCode
 @Entity(name = "tasks" )
 public class Task {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
