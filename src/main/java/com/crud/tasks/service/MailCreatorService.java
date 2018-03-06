@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,13 +38,24 @@ public class MailCreatorService {
         context.setVariable("tasks_url","https://robertkonior.github.io");
         context.setVariable("button","Visit website");
         context.setVariable("admin_config", adminConfig);
-        context.setVariable("company_details",companyConfig.getCompanyName() + " phone: "
-                + companyConfig.getCompanyPhone() + " email" + companyConfig.getCompanyEmail() );
+        context.setVariable("company_details",companyConfig);
         context.setVariable("show_button", false);
         context.setVariable("is_friend", true);
         context.setVariable("application_functionality", functionality);
         return templateEngine.process("mail/created-trello-card-mail", context);
     }
 
-    public String build
+    public String buildSchedulerEmail(String message) {
+
+        Context context = new Context();
+        context.setVariable("message", message);
+        context.setVariable("tasks_url","https://robertkonior.github.io");
+        context.setVariable("button","Check on website");
+        context.setVariable("admin_config", adminConfig);
+        context.setVariable("company_details",companyConfig);
+        context.setVariable("is_friend", true);
+        context.setVariable("review","Today is :" + LocalDate.now() + "You should do:");
+
+        return templateEngine.process("mail/created-scheduler-mail", context);
+    }
 }
