@@ -35,10 +35,10 @@ public class MailCreatorService {
 
         Context context = new Context();
         context.setVariable("message", message);
-        context.setVariable("tasks_url","https://robertkonior.github.io");
-        context.setVariable("button","Visit website");
+        context.setVariable("tasks_url", "https://robertkonior.github.io");
+        context.setVariable("button", "Visit website");
         context.setVariable("admin_config", adminConfig);
-        context.setVariable("company_details",companyConfig);
+        context.setVariable("company_details", companyConfig);
         context.setVariable("show_button", false);
         context.setVariable("is_friend", true);
         context.setVariable("application_functionality", functionality);
@@ -49,12 +49,12 @@ public class MailCreatorService {
 
         Context context = new Context();
         context.setVariable("message", message);
-        context.setVariable("tasks_url","https://robertkonior.github.io");
-        context.setVariable("button","Check on website");
+        context.setVariable("tasks_url", "https://robertkonior.github.io");
+        context.setVariable("button", "Check on website");
         context.setVariable("admin_config", adminConfig);
-        context.setVariable("company_details",companyConfig);
+        context.setVariable("company_details", companyConfig);
         context.setVariable("is_friend", true);
-        context.setVariable("review","Today is :" + LocalDate.now() + "You should do:");
+        context.setVariable("review", "Today is :" + LocalDate.now() + "You should do:");
 
         return templateEngine.process("mail/created-scheduler-mail", context);
     }

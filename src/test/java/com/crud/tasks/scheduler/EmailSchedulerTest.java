@@ -38,7 +38,7 @@ public class EmailSchedulerTest {
         //When
         emailScheduler.sendInformationEmail();
         //Then
-        verify(simpleEmailService, times(1)).send(new Mail("admin@admin.com", "Tasks: Once a day email", "Currently in database you got: 1 task"));
+        verify(simpleEmailService, times(1)).send(simpleEmailService.SCHEDULER_EMAIL, new Mail("admin@admin.com", "Tasks: Once a day email", "Currently in database you got: 1 task"));
     }
 
     @Test
@@ -49,7 +49,7 @@ public class EmailSchedulerTest {
         //When
         emailScheduler.sendInformationEmail();
         //Then
-        verify(simpleEmailService, times(1)).send(new Mail("admin@admin.com", "Tasks: Once a day email", "Currently in database you got: 5 tasks"));
+        verify(simpleEmailService, times(1)).send(simpleEmailService.SCHEDULER_EMAIL,new Mail("admin@admin.com", "Tasks: Once a day email", "Currently in database you got: 5 tasks"));
     }
 
 }

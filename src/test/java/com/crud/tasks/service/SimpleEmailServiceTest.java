@@ -39,7 +39,7 @@ public class SimpleEmailServiceTest {
 
         };
         //When
-        simpleEmailService.send(mail);
+        simpleEmailService.send(simpleEmailService.NEW_TRELLO_CARD, mail);
 
         //Then
         verify(javaMailSender, times(1)).send(any(MimeMessagePreparator.class));

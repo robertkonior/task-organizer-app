@@ -62,7 +62,7 @@ public class TrelloServiceTest {
         CreatedTrelloCardDto createdCard = trelloService.createdTrelloCard(cardToTest);
         //Then
         assertEquals(createdToTest, createdCard);
-        verify(emailService, times(1)).send(new Mail("admin@admin.com","Task: New Trello card ","New card: " +cardToTest.getName()+ "has been created on your Trello account"));
+        verify(emailService, times(1)).send(emailService.NEW_TRELLO_CARD ,new Mail("admin@admin.com","Task: New Trello card ","New card: " +cardToTest.getName()+ "has been created on your Trello account"));
     }
 
     @Test
@@ -71,7 +71,7 @@ public class TrelloServiceTest {
         //When
         trelloService.createdTrelloCard(null);
         //Then
-        verify(emailService, times(0)).send(null);
+        verify(emailService, times(0)).send(emailService.NEW_TRELLO_CARD ,null);
     }
 
 }
