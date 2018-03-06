@@ -54,7 +54,7 @@ public class MailCreatorService {
         context.setVariable("admin_config", adminConfig);
         context.setVariable("company_details", companyConfig);
         context.setVariable("is_friend", true);
-        context.setVariable("review", "Today is :" + LocalDate.now() + "You should do:");
+        context.setVariable("review", "Today is : " + LocalDate.now() + " You should do: ");
 
         return templateEngine.process("mail/created-scheduler-mail", context);
     }

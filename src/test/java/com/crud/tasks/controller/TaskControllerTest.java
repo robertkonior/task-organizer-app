@@ -71,7 +71,6 @@ public class TaskControllerTest {
         //When&Then
         mockMvc.perform(get("/v1/tasks/11").
                 contentType(MediaType.APPLICATION_JSON)
-                .param("taskId", "11")
                 .characterEncoding("UTF-8"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(11)))
@@ -88,8 +87,7 @@ public class TaskControllerTest {
         //When & Then
         mockMvc.perform(delete("/v1/tasks/11")
                 .contentType(MediaType.APPLICATION_JSON)
-                .characterEncoding("UTF-8")
-                .param("taskId", "11"))
+                .characterEncoding("UTF-8"))
                 .andExpect(status().isNotFound());
         verify(service, times(0)).deleteTask(11L);
     }
@@ -101,8 +99,7 @@ public class TaskControllerTest {
         when(service.getTask(11L)).thenReturn(Optional.of(task));
         //When&Then
         mockMvc.perform(delete("/v1/tasks/11").contentType(MediaType.APPLICATION_JSON)
-                .characterEncoding("UTF-8")
-                .param("taskId", "11"))
+                .characterEncoding("UTF-8"))
                 .andExpect(status().isOk());
         verify(service, times(1)).deleteTask(11L);
     }

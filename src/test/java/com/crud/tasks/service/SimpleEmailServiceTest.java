@@ -31,22 +31,13 @@ public class SimpleEmailServiceTest {
         //Given
         Mail mail = new Mail("test@test.com","Test","Test Message");
 
-        MimeMessagePreparator mailMessage = mimeMessage -> {
-            MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
-            messageHelper.setTo(mail.getMailTo());
-            messageHelper.setSubject(mail.getSubject());
-            messageHelper.setText(mail.getMessage());
-
-        };
         //When
-        simpleEmailService.send(simpleEmailService.NEW_TRELLO_CARD, mail);
+        simpleEmailService.send(SimpleEmailService.NEW_TRELLO_CARD, mail);
 
         //Then
         verify(javaMailSender, times(1)).send(any(MimeMessagePreparator.class));
 
 
     }
-
-
 
 }
