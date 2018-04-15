@@ -14,8 +14,9 @@ Application enables:
 
  - Spring Framework
  - JPA/Hibernate
- - Junit, Mockito
+ - Junit, Mockito, Selenium
  - Gradle
  - MySQL/PostgreSQL
  - Front-end: HTML, CSS, JavaScript (AJAX, JQuery)
- - Documentation : Swagger 
+ - Swagger 
+ 
